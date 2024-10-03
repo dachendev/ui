@@ -58,5 +58,8 @@
     "extends": [
       "plugin:storybook/recommended"
     ]
+  },
+  "dependencies": {
+    "classnames": "^2.5.1"
   }
 }
