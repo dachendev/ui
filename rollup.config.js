@@ -7,38 +7,37 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import postcss from 'rollup-plugin-postcss'
 
 const require = createRequire(import.meta.url)
-const pkg = require('./package.json')
+const packageJson = require('./package.json')
 
 export default [
   {
     input: 'src/index.js',
     output: [
       {
-        file: pkg.main,
+        file: packageJson.main,
         format: 'cjs',
         sourcemap: true,
       },
       {
-        file: pkg.module,
+        file: packageJson.module,
         format: 'esm',
-        exports: 'named',
         sourcemap: true,
       },
     ],
-    external: Object.keys(pkg.peerDependencies),
+    external: Object.keys(packageJson.peerDependencies),
     plugins: [
       peerDepsExternal(),
       nodeResolve({
         extensions: ['.js', '.jsx'],
       }),
       commonjs(),
-      terser(),
       babel({
         babelHelpers: 'bundled',
         presets: ['@babel/preset-react'],
         exclude: 'node_modules/**',
       }),
       postcss(),
+      terser(),
     ],
   },
 ]
