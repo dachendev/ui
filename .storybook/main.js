@@ -1,3 +1,5 @@
+import path from 'path'
+
 /** @type { import('@storybook/react-vite').StorybookConfig } */
 const config = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -15,6 +17,10 @@ const config = {
   },
   core: {
     disableTelemetry: true,
+  },
+  viteFinal: async (config) => {
+    config.resolve.alias['@'] = path.resolve(__dirname, '../src')
+    return config
   },
 }
 export default config
